@@ -12,6 +12,7 @@
     <Reference Include="$(GameManagedDir)\InControl.dll" />
     <Reference Include="0Harmony"><HintPath>..\ShipbreakerVr\ModFiles\BepInEx\core\0Harmony.dll</HintPath></Reference>
     <Compile Include="..\ShipbreakerVr\Tracking\HudCurveCache.cs" Link="HudCurveCache.cs" />
+    <Compile Include="..\ShipbreakerVr\Tracking\HandMovementInput.cs" Link="HandMovementInput.cs" />
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net48" Version="1.0.3" PrivateAssets="all" />
     <Reference Include="$(GameManagedDir)\UnityEngine.CoreModule.dll;$(GameManagedDir)\UnityEngine.XRModule.dll;$(GameManagedDir)\UnityEngine.UI.dll;$(GameManagedDir)\Unity.TextMeshPro.dll" />
     <Compile Include="..\ShipbreakerVr\HudMeshPatchTargets.cs" Link="HudMeshPatchTargets.cs" />

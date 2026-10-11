@@ -236,6 +236,7 @@ internal static class Program
     {
         LegacyJoystickChecks.Run(Check);
         InputModeChecks.Run(Check);
+        HandMovementChecks.Run(Check);
         CheckSplitGamepad();
         CheckHudPatchTargets();
         CheckPresentation();

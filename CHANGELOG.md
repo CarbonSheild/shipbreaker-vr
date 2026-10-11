@@ -1,5 +1,23 @@
 # Changes
 
+## 0.4.48 — right-hand grapple controls and smoother direct rotation (local test build)
+
+- Hand-steered layout: grapple retract and tether preview/place move from the left trigger to A, interact and grapple push move from left X to B, and the right stick click recalls tethers. The left hand now only steers. All three are rebindable under `[HandMovement]`; the stick layout is unchanged.
+- Direct rotation also sets the body transform each frame when the rigidbody has no interpolation, so the rendered body no longer lags the hand by a physics step at low frame rates. Logs the rigidbody interpolation mode once for diagnosis.
+- The two-stick layout's grip + left stick D-pad shift no longer fires in the hand-steered layout, where that combination is steering. Holding the grip and thrusting forward no longer opens the scanner.
+
+## 0.4.47 — direct (ratchet) rotation (local test build)
+
+- Holding the left grip now locks the suit orientation to the controller one to one: it turns exactly as the controller turns from the orientation at the squeeze. Release, reposition the hand, hold again to continue. Applied after the game's own axis rotation each frame; turning velocities are zeroed while held so release leaves no coasting. The 20 degree twist deadzone still removes accidental roll.
+- `RotationMode = Rate` restores the 0.4.46 speed-control behaviour; `DirectRotationGain` scales the applied angle.
+
+## 0.4.46 — hand-steered movement (local test build)
+
+- Add a hand-steered movement layout, on by default. The left stick thrusts in the direction the left controller points, giving analog thrust on all three axes from one stick. Holding the left grip and turning, tilting or twisting that controller rotates the body; the orientation at the squeeze is neutral. Roll has its own larger deadzone so it needs a deliberate twist. A short haptic pulse confirms each new rotation anchor.
+- In this layout the right stick is the D-pad in gameplay without a modifier; A/B, the right stick click and the old roll buttons are unused. Left stick click brakes. Right grip still changes tool mode.
+- F10 switches between hand-steered and two-stick movement and saves the choice. Thrust frame, deadzones, range, curve, buttons and inversions are configurable under `[HandMovement]`.
+- Replaces the 0.4.45 space-mouse experiment, which moved thrust with hand position and proved hard to control. Desktop tests cover the rotation anchor, deadzones, roll threshold, axis signs and the controller-relative thrust mapping. Headset feel is untested until a Quest 3 / Virtual Desktop run.
+
 ## 0.4.44 beta1 — responsive tool switching and heat-bar visibility
 
 - Apply the settling delay only when the same selected tool returns from being stowed for a grab or interaction. Ordinary tool selection no longer adds a minimum visibility delay. Retain synchronized heat-bar hiding and the guard against tools rising from the feet after interactions.

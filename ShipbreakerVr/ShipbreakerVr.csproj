@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
     <AssemblyName>ShipbreakerVr</AssemblyName>
-    <Version>0.4.44</Version>
+    <Version>0.4.48</Version>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <OutputPath>$(PublishDir)BepInEx\plugins\ShipbreakerVr\</OutputPath>
     <AutomaticallyUseReferenceAssemblyPackages>false</AutomaticallyUseReferenceAssemblyPackages>

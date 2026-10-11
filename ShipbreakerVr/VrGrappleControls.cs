@@ -97,15 +97,29 @@ internal sealed class VrGrappleControls : MonoBehaviour
             aimCamera.ResetWorldToCameraMatrix();
             var wasGrabbed = grab.Held;
             var wasRetracting = retract.Held;
+            // Hand-steered layout: retract/tether come from a right-controller button so the left hand only steers.
+            // The stick layout keeps the left trigger. Both feed the same latches, so hold/release behaviour is identical.
+            var handLayout = VrMovementControls.HandLayoutActive;
+            var retractSourceValid = handLayout ? tracking.RightHand.Grip.IsValid : tracking.LeftHand.Grip.IsValid;
+            var retractInput = handLayout
+                ? (MovementInput.Button(VrMovementControls.HandRetractTetherButton, tracking.LeftHand.Inputs, tracking.RightHand.Inputs) ? 1f : 0f)
+                : tracking.LeftHand.Trigger;
             grab.Sample(Allowed(Action.GrappleFire), tracking.RightHand.Trigger);
-            retract.Sample(Allowed(Action.RetractionModifier) && tracking.LeftHand.Grip.IsValid && hook.GrappledRigidbody, tracking.LeftHand.Trigger);
+            retract.Sample(Allowed(Action.RetractionModifier) && retractSourceValid && hook.GrappledRigidbody, retractInput);
             retractReleased = wasRetracting && !retract.Held;
             cancelTetherGrab = tethers && tethers.State == TetherController.TetherState.Placing && grab.Pressed;
-            var allowTether = Allowed(Action.PlaceTether) && tracking.LeftHand.Grip.IsValid && !hook.GrappledRigidbody && !grab.Held;
-            tether.Sample(allowTether, tracking.LeftHand.Trigger);
+            var allowTether = Allowed(Action.PlaceTether) && retractSourceValid && !hook.GrappledRigidbody && !grab.Held;
+            tether.Sample(allowTether, retractInput);
             tetherReleased = tether.Released;
             if (wasGrabbed && !grab.Held && hook.GrappledRigidbody) hook.OnGrappleReleased();
-            if (lastStatus != "ready") { lastStatus = "ready"; Debug.Log("[ShipbreakerVr] Grapple hand aim ready; right trigger holds, left trigger retracts, X pushes."); }
+            var readyStatus = handLayout ? $"ready-hand:{VrMovementControls.HandRetractTetherButton}" : "ready";
+            if (lastStatus != readyStatus)
+            {
+                lastStatus = readyStatus;
+                Debug.Log(handLayout
+                    ? $"[ShipbreakerVr] Grapple hand aim ready; right trigger holds, {VrMovementControls.HandRetractTetherButton} retracts/tethers, {VrMovementControls.HandInteractPushButton} pushes."
+                    : "[ShipbreakerVr] Grapple hand aim ready; right trigger holds, left trigger retracts, X pushes.");
+            }
             if (grab.Pressed) Debug.Log("[ShipbreakerVr] Grapple right-trigger press");
         }
         catch (System.Exception error)
@@ -171,7 +185,7 @@ internal sealed class VrGrappleControls : MonoBehaviour
         if (!instance.Controls) return;
         instance.Sample();
         if (value.State == TetherController.TetherState.Placing &&
-            (!instance.valid || !instance.tracking.LeftHand.Grip.IsValid || !Allowed(Action.PlaceTether)))
+            (!instance.valid || !(VrMovementControls.HandLayoutActive ? instance.tracking.RightHand.Grip.IsValid : instance.tracking.LeftHand.Grip.IsValid) || !Allowed(Action.PlaceTether)))
             value.EquipmentChanged(); // Cancel, never interpret lost tracking as a release-to-place.
     }
     internal static bool TetherWasPressed(LynxControls controls, LynxControls.ActionSetAndId action)

@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace ShipbreakerVr;
 
-[BepInPlugin("ShipbreakerVr", "ShipbreakerVr", "0.4.44")]
+[BepInPlugin("ShipbreakerVr", "ShipbreakerVr", "0.4.48")]
 public class ShipbreakerVrMod : BaseUnityPlugin
 {
     internal static ConfigEntry<float> DebugRayLength;
@@ -67,6 +67,7 @@ public class ShipbreakerVrMod : BaseUnityPlugin
         performanceCapture?.Tick();
         if (Input.GetKeyDown(KeyCode.F7)) VrUiDiagnostics.Capture();
         if (Input.GetKeyDown(KeyCode.F8)) VrHudCurve.ToggleFollowHead();
+        if (Input.GetKeyDown(KeyCode.F10)) VrMovementControls.ToggleHandMovement();
         if (Input.GetKeyDown(KeyCode.F5)) SetPotatoQuality();
         if (Input.GetKeyDown(KeyCode.F6)) DisableLights();
     }
