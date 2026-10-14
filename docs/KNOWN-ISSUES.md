@@ -2,6 +2,8 @@
 
 ## Accepted baseline and limits
 
+**0.4.48 hand-steered layout.** Pointed thrust, direct ratchet rotation and the right-hand grapple were iterated on Quest 3 through Virtual Desktop. Turning can look slightly uneven at low frame rates; the log line starting "Direct rotation active" records the body's physics interpolation for diagnosis. Untested: Pico and Steam Frame controllers, `RotationMode = Rate` on hardware, a right-hand rotate button. The two-stick layout on F10 is unchanged from the 0.4.44 baseline below.
+
 The user accepted the final 0.4.44 gameplay test after heat-bar visibility and ordinary tool-switch delay corrections. Earlier tests confirmed gamepad responsiveness, aiming reticles, automatic switching, shared 65% tool scaling and door/console interactions. Temporary interaction tracing is removed and verbose input logging is opt-in. This is not a recorded pass of every regression on every controller.
 
 The motion-control baseline has been exercised on Pico Neo 3 over Steam Link and Steam Frame through SteamVR. Couch play was exercised with a separate gamepad. Other headsets/runtimes, mixed controller pairs, left-handed tools, Steam Controller hardware and arbitrary Steam Input/game binding layouts are unverified. Steam Controller support requires a gamepad layout; keyboard/mouse-only layouts do not activate automatic gamepad mode.

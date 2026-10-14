@@ -1,6 +1,10 @@
 # Changes
 
-## 0.4.48 — right-hand grapple controls and smoother direct rotation (local test build)
+## 0.4.48 beta1 — hand-steered movement
+
+Release of the 0.4.45–0.4.48 work below as one beta: pointed thrust, direct ratchet rotation, and the grapple on the right controller in the hand-steered layout, with the two-stick layout unchanged on F10.
+
+## 0.4.48 — right-hand grapple controls and smoother direct rotation
 
 - Hand-steered layout: grapple retract and tether preview/place move from the left trigger to A, interact and grapple push move from left X to B, and the right stick click recalls tethers. The left hand now only steers. All three are rebindable under `[HandMovement]`; the stick layout is unchanged.
 - Direct rotation also sets the body transform each frame when the rigidbody has no interpolation, so the rendered body no longer lags the hand by a physics step at low frame rates. Logs the rigidbody interpolation mode once for diagnosis.

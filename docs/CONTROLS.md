@@ -1,4 +1,4 @@
-# Controls — 0.4.44 beta1
+# Controls — 0.4.48 beta1
 
 ## Traditional gamepad / couch play
 

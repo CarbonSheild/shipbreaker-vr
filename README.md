@@ -1,15 +1,17 @@
-# Shipbreaker VR — 0.4.44 beta1
+# Shipbreaker VR — 0.4.48 beta1
 
 An unofficial Windows PCVR mod for **Hardspace: Shipbreaker**, based on [Raicuparta/shipbreaker-vr](https://github.com/Raicuparta/shipbreaker-vr). Uses OpenXR for headset/controller tracking and game-specific adapters for tools, movement and menus.
 
-Tested during development with Pico Neo 3 over Steam Link and Steam Frame through SteamVR. Other OpenXR headsets may work but are unverified. This is not a standalone Frame game.
+Tested during development with Pico Neo 3 over Steam Link and Steam Frame through SteamVR. The 0.4.48 hand-steered movement layout was tested on Quest 3 through Virtual Desktop. Other OpenXR headsets may work but are unverified. This is not a standalone Frame game.
+
+**New in 0.4.48: hand-steered movement**, on by default. The left stick thrusts where the left controller points. Hold the left grip and the suit turns exactly as the controller turns; release, reposition, hold again to keep turning. The grapple moves to the right controller. F10 switches back to the two-stick layout. Details in [the controls guide](docs/CONTROLS.md).
 
 ## Install or update
 
 1. Install the Steam Windows version of Shipbreaker and run it once normally. Close the game.
 2. Extract **the entire portable ZIP** to a normal folder. Do not run it inside the ZIP.
 3. Run **Install.cmd**. It finds the game through Steam's libraries, or opens a folder picker. Select the folder containing `Shipbreaker.exe` if asked.
-4. Connect the headset and controllers. Start SteamVR with SteamVR selected as the active OpenXR runtime, then launch Shipbreaker from Steam.
+4. Connect the headset and controllers. Start SteamVR with SteamVR selected as the active OpenXR runtime, then launch Shipbreaker from Steam. Virtual Desktop's own OpenXR runtime also works.
 5. VR starts automatically. Keep the game window focused, close the SteamVR dashboard and release all buttons/center both sticks before testing.
 
 No Unity editor, developer SDK, separate BepInEx installation or mod manager is needed. Setup does not change SteamVR resolution, game graphics settings or saves. Existing mod settings are preserved; obsolete test keys are removed with a backup. Fresh settings use the accepted HUD/tool calibration, controller navigation and haptics. Automatic performance recording is off.
@@ -18,6 +20,7 @@ No Unity editor, developer SDK, separate BepInEx installation or mod manager is 
 
 ## What's included
 
+- Hand-steered movement: thrust where the left controller points, direct one-to-one ratchet rotation on the left grip, grapple on the right controller. Two-stick layout on F10.
 - Tracked controller tool aim, movement, tool selection, menus and haptics.
 - Automatic couch/gamepad mode with native bindings, right-stick aiming, independent head looking and visible aiming rings.
 - Consistent 65%-size held tools in both modes, with immediate ordinary tool switching and synchronized tool/heat-bar hiding during grabs and interactions.
@@ -50,6 +53,6 @@ The scripts are unsigned. The ZIP SHA-256 detects accidental corruption; it is n
 
 See [known issues and test checklist](docs/KNOWN-ISSUES.md). Close the game before sharing `BepInEx/LogOutput.log`; review it for local paths/system details first. F7 records UI diagnostics. F9 starts/stops an optional timing capture; reports are written under `BepInEx`.
 
-This beta adds couch/gamepad play and tool presentation improvements to the 0.4.32-beta1 baseline. The user accepted the final 0.4.44 gameplay test, including the heat-bar and tool-switch corrections. The package uses that accepted binary; the final ZIP is validated separately from headset gameplay. See docs/RELEASE-VALIDATION.md in the source repository. Other headset/runtime and Steam Input layout combinations remain unverified.
+This beta adds the hand-steered movement layout to the 0.4.44-beta1 baseline, which added couch/gamepad play and tool presentation improvements. The hand layout was iterated in headset on Quest 3 through Virtual Desktop; on Pico and Steam Frame it is untested, and the two-stick layout (F10) is unchanged from 0.4.44. Other headset/runtime and Steam Input layout combinations remain unverified.
 
 Source build instructions: [BUILD.md](docs/BUILD.md). Architecture and file inventory are in the source repository's `docs` folder. Mod source retains the upstream MIT license; bundled runtime notices are in [THIRD-PARTY.md](THIRD-PARTY.md) and `licenses`.
