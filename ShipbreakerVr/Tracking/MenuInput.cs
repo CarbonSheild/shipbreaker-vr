@@ -12,14 +12,17 @@ public struct MenuInput
     // Split controllers with a complete console layout use the game's button positions.
     // Tool triggers and movement remain in the tracked gameplay adapters.
     public static MenuInput Gamepad(bool gameplay, bool wheelOpen, ControllerInputs left, ControllerInputs right,
-        float deadzone, bool leftTrigger, bool rightTrigger)
+        float deadzone, bool leftTrigger, bool rightTrigger, bool leftGripIsRotateHold = false)
     {
         if (right.Menu) return new MenuInput { Start = true };
         if (left.View) return new MenuInput { Select = true };
         // Grip is OpenXR squeeze/click (the full-press stage), not squeeze/value.
         // Keep the face/D-pad bindings; either input can hold the same action.
-        var y = right.Y || right.Grip;
-        var dpad = new Vector2(left.Dpad.x, left.Grip ? 1f : left.Dpad.y);
+        // Right grip matches the compact layout: tool mode in gameplay, RB / next tab in menus.
+        var y = right.Y;
+        // Hand-steered movement holds the left grip to turn; it must not also open the scanner.
+        var leftGripUp = left.Grip && !(gameplay && leftGripIsRotateHold);
+        var dpad = new Vector2(left.Dpad.x, leftGripUp ? 1f : left.Dpad.y);
         var tools = gameplay && y;
         return new MenuInput
         {
@@ -28,8 +31,10 @@ public struct MenuInput
             Dpad = wheelOpen || tools ? Vector2.zero : dpad,
             Confirm = !gameplay && right.Primary, Back = !gameplay && right.Secondary,
             Interact = gameplay && !wheelOpen && !tools && right.X, Tools = tools,
+            Mode = gameplay && !wheelOpen && !tools && right.Grip,
             Misc1 = !gameplay && y, Misc2 = !gameplay && right.X,
-            PreviousTab = !wheelOpen && !tools && left.Bumper, NextTab = !wheelOpen && !tools && right.Bumper,
+            PreviousTab = !wheelOpen && !tools && left.Bumper,
+            NextTab = !wheelOpen && !tools && (right.Bumper || !gameplay && right.Grip),
             LeftTrigger = !gameplay && leftTrigger, RightTrigger = !gameplay && rightTrigger
         };
     }

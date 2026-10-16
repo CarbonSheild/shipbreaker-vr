@@ -580,19 +580,23 @@ internal static class Program
             Check(Route(Pad(dpad: dir), neutral).Dpad == dir, "Physical D-pad routes independently of grip/stick " + dir);
             Check(Route(Pad(dpad: dir), neutral, false).Dpad == dir, "Physical D-pad works in menus " + dir);
         }
-        var grips = Route(Pad(grip: true, stick: Vector2.up), Pad(grip: true));
-        Check(grips.Tools && !grips.PreviousTab && !grips.NextTab && !grips.Mode && grips.Dpad == Vector2.zero, "Right full grip opens wheel and suppresses simultaneous scanner shortcut");
-        var gripWheel = Route(Pad(stick: Vector2.left), Pad(grip: true));
-        Check(gripWheel.Tools && gripWheel.Navigate == Vector2.left, "Right full grip duplicates Y with left-stick selection");
-        Check(Route(neutral, Pad(y: true, grip: true)).Tools && Route(neutral, Pad(y: true)).Tools &&
-            Route(neutral, Pad(grip: true)).Tools && !Route(neutral, neutral).Tools, "Tool wheel stays held until both Y and full grip release");
+        var gripMode = Route(neutral, Pad(grip: true));
+        Check(gripMode.Mode && !gripMode.Tools && !gripMode.NextTab, "Right full grip changes tool mode in gameplay, like the compact layout");
+        Check(!Route(neutral, Pad(y: true, grip: true)).Mode && Route(neutral, Pad(y: true, grip: true)).Tools, "Tool wheel suppresses right-grip tool mode");
+        Check(!Route(neutral, Pad(grip: true), true, true).Mode, "Open tool wheel suppresses right-grip tool mode");
+        Check(Route(neutral, Pad(y: true)).Tools && !Route(neutral, neutral).Tools, "Y alone holds the tool wheel");
         Check(Route(Pad(grip: true), neutral).Dpad == Vector2.up, "Left full grip duplicates physical D-pad up");
         Check(Route(Pad(grip: true, dpad: Vector2.up), neutral).Dpad == Vector2.up, "Scanner aliases do not double the D-pad value");
         Check(Route(Pad(grip: true, dpad: Vector2.left), neutral).Dpad == new Vector2(-1, 1), "Scanner grip preserves horizontal physical D-pad input");
         Check(Route(Pad(grip: true), neutral, false).Dpad == Vector2.up, "Left full grip retains D-pad-up navigation in menus");
-        Check(Route(neutral, Pad(grip: true), false).Misc1, "Right full grip retains contextual Y in menus");
-        Check(!Route(Pad(grip: true), Pad(menu: true, grip: true)).Tools &&
-            Route(Pad(grip: true), Pad(menu: true, grip: true)).Dpad == Vector2.zero, "Pause suppresses both grip aliases");
+        MenuInput HandRoute(ControllerInputs l, ControllerInputs r, bool play = true) => MenuInput.Gamepad(play, false, l, r, .25f, true, true, true);
+        Check(HandRoute(Pad(grip: true), neutral).Dpad == Vector2.zero, "Hand-steered rotate hold on left grip does not open the scanner");
+        Check(HandRoute(Pad(grip: true, dpad: Vector2.up), neutral).Dpad == Vector2.up, "Physical D-pad up still opens the scanner while turning");
+        Check(HandRoute(Pad(grip: true), neutral, false).Dpad == Vector2.up, "Rotate hold grip keeps D-pad-up navigation in menus");
+        var gripMenu = Route(neutral, Pad(grip: true), false);
+        Check(gripMenu.NextTab && !gripMenu.Misc1 && !gripMenu.Mode, "Right full grip is RB / next tab in menus");
+        var paused = Route(Pad(grip: true), Pad(menu: true, grip: true));
+        Check(!paused.Mode && paused.Dpad == Vector2.zero, "Pause suppresses both grip aliases");
         var bumpers = Route(Pad(lb: true), Pad(lb: true));
         Check(bumpers.PreviousTab && bumpers.NextTab, "Physical bumpers reach native gameplay hand actions");
         bumpers = Route(Pad(lb: true), Pad(lb: true), false);

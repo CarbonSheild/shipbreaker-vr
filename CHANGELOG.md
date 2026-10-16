@@ -1,5 +1,10 @@
 # Changes
 
+## Unreleased — Steam Frame grips
+
+- Steam Frame, hand-steered layout: holding the left grip to turn no longer also opens the scanner. The Frame's native gamepad route treated the left grip as D-pad up and skipped the hand-layout guard added in 0.4.48. Menus keep left grip as navigate up; physical D-pad up still opens the scanner.
+- Steam Frame: the right grip now matches the compact (Quest/Pico) layout. Tool mode (e.g. cutter mode) in gameplay, RB / next tab in menus. The tool wheel is on Y only.
+
 ## 0.4.48 beta1 — hand-steered movement
 
 Release of the 0.4.45–0.4.48 work below as one beta: pointed thrust, direct ratchet rotation, and the grapple on the right controller in the hand-steered layout, with the two-stick layout unchanged on F10.

@@ -61,16 +61,17 @@ Stock range, upgrades, heat, tether capacity and other tool rules remain in effe
 
 | Input | Action |
 | --- | --- |
-| Y **or right full grip click** | Hold for tool wheel, select with **left stick**, release to equip; contextual Y in menus |
+| Y | Hold for tool wheel, select with **left stick**, release to equip; contextual Y in menus |
+| Right full grip click | Tool mode (e.g. cutter mode) in gameplay; RB / next tab in menus |
 | D-pad up **or left full grip click** | Scanner in gameplay; navigate up in menus |
 | D-pad down | Recall tethers |
 | D-pad left | Flashlight |
-| D-pad right | Tool mode |
+| D-pad right | Tool mode (same as right grip) |
 | LB / RB | Native hand-grab actions; previous/next scanner mode while scanning; previous/next tab in menus/options |
 | Menu | Pause/resume |
 | View | Native View/tasks action, where available in the current game mode |
 
-The grip shortcuts use the full squeeze **click** stage, not the analog half squeeze or the index-finger trigger. Original Y and D-pad up still work. If both Y and its grip alias are held, release both to close the wheel. Frame scanner mode switching uses bumpers.
+The grip shortcuts use the full squeeze **click** stage, not the analog half squeeze or the index-finger trigger. In the hand-steered layout the left grip is the turn hold, so in gameplay it does not open the scanner; use D-pad up instead. Original D-pad up and right still work. Frame scanner mode switching uses bumpers.
 
 ## Pico Neo 3 / compact VR layout
 

@@ -142,7 +142,8 @@ internal sealed class VrMenuControls : MonoBehaviour
                 if (!gamepadReady) { cancelWheel |= wheelOwned; return default; }
                 canRoute = true;
                 var gamepad = MenuInput.Gamepad(GameSession.CurrentGameState == GameSession.GameState.Gameplay,
-                    EquipmentController.ToolMenuOpen, left, right, deadzone.Value, menuLeftTrigger.Held, menuRightTrigger.Held);
+                    EquipmentController.ToolMenuOpen, left, right, deadzone.Value, menuLeftTrigger.Held, menuRightTrigger.Held,
+                    VrMovementControls.HandLayoutActive && VrMovementControls.HandRotateHoldButton == VrButton.LeftGrip);
                 if (gamepad.Start || gamepad.Select) cancelWheel |= wheelOwned;
                 if (gamepad.Tools) wheelOwned = true;
                 else if (!EquipmentController.ToolMenuOpen) { wheelOwned = false; cancelWheel = false; }

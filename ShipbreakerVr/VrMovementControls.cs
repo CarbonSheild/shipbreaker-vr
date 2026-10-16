@@ -74,6 +74,7 @@ internal sealed class VrMovementControls : MonoBehaviour
     internal static bool HandLayoutActive => handMovement != null && handMovement.Value && enabledSetting != null && enabledSetting.Value;
     /// <summary>Hand-steered movement frees the right stick, so gameplay treats it as the D-pad without a modifier.</summary>
     internal static bool RightStickIsDpad => HandLayoutActive;
+    internal static VrButton HandRotateHoldButton => handRotateHold.Value;
     internal static VrButton HandInteractPushButton => handInteractPush.Value;
     internal static VrButton HandRetractTetherButton => handRetractTether.Value;
     internal static VrButton HandRecallTethersButton => handRecallTethers.Value;
